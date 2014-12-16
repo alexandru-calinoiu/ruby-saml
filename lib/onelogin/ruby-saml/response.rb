@@ -282,7 +282,7 @@ module OneLogin
       end
 
       def retrieve_symmetric_key(cipher_data)
-        private_key = OpenSSL::PKey::RSA.new(settings.private_key)
+        private_key = OpenSSL::PKey::RSA.new(settings.get_sp_key)
         encrypted_aes_key_element = REXML::XPath.first(cipher_data, "./ds:KeyInfo/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", { "ds" => DSIG, "xenc" => XENC })
         encrypted_aes_key = Base64.decode64(encrypted_aes_key_element.text)
         private_key.private_decrypt(encrypted_aes_key, OpenSSL::PKey::RSA::PKCS1_OAEP_PADDING)
