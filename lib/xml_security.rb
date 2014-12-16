@@ -72,6 +72,7 @@ module XMLSecurity
 
   class Document < BaseDocument
     SHA1            = "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+    SHA1NORSA       = "http://www.w3.org/2000/09/xmldsig#sha1"
     SHA256          = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
     SHA384          = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
     SHA512          = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
