@@ -285,7 +285,8 @@ module OneLogin
         private_key = OpenSSL::PKey::RSA.new(settings.get_sp_key)
         encrypted_aes_key_element = REXML::XPath.first(cipher_data, "./ds:KeyInfo/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", { "ds" => DSIG, "xenc" => XENC })
         encrypted_aes_key = Base64.decode64(encrypted_aes_key_element.text)
-        private_key.private_decrypt(encrypted_aes_key, OpenSSL::PKey::RSA::PKCS1_OAEP_PADDING)
+        algorithm = REXML::XPath.first(cipher_data, "./ds:KeyInfo/xenc:EncryptedKey/xenc:EncryptionMethod", { "ds" => DSIG, "xenc" => XENC }).attributes['Algorithm']
+        retrieve_plaintext(encrypted_aes_key, private_key, algorithm)
       end
 
       def retrieve_plaintext(cipher_text, key, algorithm)
