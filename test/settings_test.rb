@@ -53,12 +53,23 @@ class SettingsTest < Test::Unit::TestCase
       @settings = OneLogin::RubySaml::Settings.new
       @settings.attribute_consuming_service.configure do
         service_name "Test Service"
-        add_attribute :name => "Name", :name_format => "Name Format", :friendly_name => "Friendly Name" 
+        add_attribute :name => "Name", :name_format => "Name Format", :friendly_name => "Friendly Name"
       end
 
       assert_equal @settings.attribute_consuming_service.configured?, true
       assert_equal @settings.attribute_consuming_service.name, "Test Service"
       assert_equal @settings.attribute_consuming_service.attributes, [{:name => "Name", :name_format => "Name Format", :friendly_name => "Friendly Name" }]
+    end
+
+    context 'default security settings have changed' do
+      setup do
+        @settings.security[:authn_requests_signed] = true
+      end
+
+      should 'not retain old security settings' do
+        @new_settings = OneLogin::RubySaml::Settings.new
+        assert_equal @new_settings.security[:authn_requests_signed], false
+      end
     end
 
   end
