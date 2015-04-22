@@ -5,6 +5,7 @@ module OneLogin
         config = DEFAULTS.merge(overrides)
         config.each do |k,v|
           acc = "#{k.to_s}=".to_sym
+          v = v.dup if v.is_a?(Hash)
           self.send(acc, v) if self.respond_to? acc
         end
         @attribute_consuming_service = AttributeService.new
@@ -111,9 +112,9 @@ module OneLogin
           :embed_sign               => false,
           :digest_method            => XMLSecurity::Document::SHA1,
           :signature_method         => XMLSecurity::Document::SHA1
-        },
+        }.freeze,
         :double_quote_xml_attribute_values         => false,
-      }
+      }.freeze
     end
   end
 end
