@@ -189,6 +189,17 @@ class RubySamlTest < Test::Unit::TestCase
         assert response.send(:validate_right_document, settings.idp_cert_fingerprint, false)
       end
 
+      should "validate encrypted signed assertion in an unsigned message with no prefix" do
+        settings = OneLogin::RubySaml::Settings.new
+        settings.private_key = ruby_saml_key_text
+
+        response = OneLogin::RubySaml::Response.new(unsigned_message_encrypted_and_signed_assertion_with_no_prefix)
+        response.settings = settings
+
+        REXML::Document.stubs(:new).with(any_parameters)
+
+        response.send(:decrypt_assertion_document)
+      end
     end
 
     context "#name_id" do

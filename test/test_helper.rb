@@ -76,6 +76,10 @@ class Test::Unit::TestCase
     @unsigned_message_encrypted_and_signed_assertion ||= File.read(File.join(File.dirname(__FILE__), 'responses', 'unsigned_message_encrypted_and_signed_assertion.xml.base64'))
   end
 
+  def unsigned_message_encrypted_and_signed_assertion_with_no_prefix
+    @unsigned_message_encrypted_and_signed_assertion_with_no_prefix ||= File.read(File.join(File.dirname(__FILE__), 'responses', 'unsigned_message_encrypted_and_signed_assertion_with_no_prefix.xml'))
+  end
+
   def signature_fingerprint_1
     @signature_fingerprint1 ||= "C5:19:85:D9:47:F1:BE:57:08:20:25:05:08:46:EB:27:F6:CA:B7:83"
   end
